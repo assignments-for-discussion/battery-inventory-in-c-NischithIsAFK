@@ -6,9 +6,27 @@ struct CountsBySoH {
   int exchange;
   int failed;
 };
-
+int calc(int capacity){
+    if(capacity>=100){
+      return 2;
+    } 
+    else if(capacity>=80){
+    return 1;
+    }
+    else{
+    return 0;
+    }
+}
 struct CountsBySoH countBatteriesByHealth(const int* presentCapacities, int nBatteries) {
   struct CountsBySoH counts = {0, 0, 0};
+  for(int i=0;i<nBatteries;i++){
+    int soh=calc(presentCapacities[i]);
+    switch(soh){
+      case 0:counts.failed++;break;
+      case 1:counts.exchange++;break;
+      case 2:counts.healthy++;break;
+    }
+  }
   return counts;
 }
 
